@@ -45,17 +45,18 @@ app.get('/getUser/:name', function(req, res){
 });
 
 
-app.get('/CreateUser/:name/:firstname/:password/:mail/:birthday', function(req, res){
+app.get('/createUser/:name/:firstname/:password/:mail/:birthday/:pseudo', function(req, res){
 
     const name = req.params.name.toLowerCase();
     const firstName = req.params.firstname.toLowerCase();
     const password = req.params.password;
     const mail = req.params.mail.toLowerCase();
     const birthday = req.params.birthday;
+    const pseudo = req.params.pseudo;
 
-    if(!userList.hasUser(name)){
+    if(!userList.hasUser(pseudo)){
 
-        let user = new User(name,firstName,password,mail,birthday);
+        let user = new User(name,firstName,password,mail,birthday,pseudo);
         userList.push(user);
 
         res.send({
