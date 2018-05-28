@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>HomeMonitor</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+
+
+
+<h2>Bienvenue dans HomeMonitor</h2>
+  <p>Vous allez être connecté avec les informations suivantes :</p>
+  <p>- nom : Rabiot</p>
+  <p>- prénom : Adrien</p>
+  <p>- mail : adrien.rabiot@fff.fr</p>
+  <p>- date de naissance : 03/04/1995</p>
+
+  <form [formGroup]="todo" (ngSubmit)="logForm()">
+    <ion-item>
+      <ion-label>Pseudo</ion-label>
+      <ion-input type="text" [(ngModel)]="todo.pseudo" name="pseudo" formControlName="pseudo" type="text"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!todo.valid" round>S'Inscrire</button>
+  </form>
+</ion-content>
+
+
+

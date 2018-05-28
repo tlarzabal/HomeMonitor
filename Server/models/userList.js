@@ -4,7 +4,7 @@
 
 "use strict";
 
-module.exports = class GameList {
+module.exports = class UserList {
 
     constructor() {
         this.list = [];
@@ -27,7 +27,6 @@ module.exports = class GameList {
     hasUser(name){
         return (this.list.findIndex(i => i.getName() === name.toLowerCase()) !== -1);
     }
-
 
 
     push(name) {

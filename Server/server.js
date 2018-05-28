@@ -43,16 +43,19 @@ app.get('/getUser/:name', function(req, res){
         })
     }
 });
-app.get('/CreateUser/:name/:password/:mail', function(req, res){
+
+
+app.get('/CreateUser/:name/:firstname/:password/:mail/:birthday', function(req, res){
 
     const name = req.params.name.toLowerCase();
+    const firstName = req.params.firstname.toLowerCase();
     const password = req.params.password;
-    const mail = req.params.mail;
+    const mail = req.params.mail.toLowerCase();
+    const birthday = req.params.birthday;
 
     if(!userList.hasUser(name)){
 
-        let user = new User(name,password,mail);
-
+        let user = new User(name,firstName,password,mail,birthday);
         userList.push(user);
 
         res.send({
