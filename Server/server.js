@@ -43,8 +43,6 @@ app.get('/getUser/:name', function(req, res){
         })
     }
 });
-
-
 app.get('/CreateUser/:name/:password/:mail', function(req, res){
 
     const name = req.params.name.toLowerCase();
