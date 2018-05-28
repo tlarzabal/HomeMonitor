@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Hobbies
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item *ngFor="let name of names">
+    <ion-label>{{name.Name}}</ion-label>
+    <ion-checkbox [(ngModel)]="name.Value" ></ion-checkbox>
+  </ion-item>
+  <button ion-button (click)="submit()" round>Valider</button>
+</ion-content>
