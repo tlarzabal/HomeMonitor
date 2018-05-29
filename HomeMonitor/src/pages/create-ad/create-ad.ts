@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ContactPage} from "../contact/contact";
 
@@ -26,32 +26,15 @@ let server = new Server();
 export class CreateAdPage {
 
 
-
-  private form : FormGroup;
+  private form: FormGroup;
 
   formCreateAd() {
 
-  this.adProvider.createAd(this.form.value);
-  /*
-    this.http.post('http://localhost:8080/createAd', {
-      //title: this.form.value['title'],
-      //description: this.form.value['description']
-      value: this.form.value
-    })
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log("Error occured");
-        }
-      );
-*/
-
-      this.navCtrl.push(ContactPage);
+    this.adProvider.createAd(this.form.value);
+    this.navCtrl.push(ContactPage);
   }
 
-  constructor(public adProvider:AdProvider,public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
+  constructor(public adProvider: AdProvider, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       adress: ['', Validators.required],
