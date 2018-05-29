@@ -17,6 +17,7 @@ import { AdProvider } from '../providers/ad/ad';
 import { UserProvider } from '../providers/user/user';
 import {HttpClientModule} from "@angular/common/http";
 
+import {TaskpagePage} from "../pages/taskpage/taskpage";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import {HttpClientModule} from "@angular/common/http";
     AdOrFlatsharingPage,
     ListAdsPage,
     HomePage,
+    TabsPage,
+      TaskpagePage,
     TabsPage,
     CreateAdPage
   ],
@@ -35,8 +38,10 @@ import {HttpClientModule} from "@angular/common/http";
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
+  entryComponents:
+      [
+    TaskpagePage,
+          MyApp,
     HobbiesPage,
     AdOrFlatsharingPage,
     ListAdsPage,

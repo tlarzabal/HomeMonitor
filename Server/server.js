@@ -2,6 +2,7 @@
 
 let User = require("./models/user.js");
 let UserList = require("./models/userList.js");
+let Task = require("./models/task.js");
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -25,6 +26,8 @@ console.log("HomeMonitor Server");
 const http = require('http').Server(app);
 const server = app.listen(process.env.PORT || 8080);
 let userList = new UserList;
+
+let task = new Task;
 
 /**
  * Partie API
@@ -80,3 +83,40 @@ app.post('/createUser', function(req, res){
         });
     }
 });
+
+app.get('/getAllKindOfTasks', function(req, res){
+    let kindTask = task.getKindOfTasks();
+    console.log(kindTask);
+    res.send({
+        passed: true,
+        kind: kindTask
+    });
+});
+
+app.get('/getTaskAssignee/:task', function(req, res){
+    const t = req.params.task.toLowerCase();
+    let assig = task.getAssignee(t);
+    console.log(assig);
+    res.send({
+        passed: true,
+        assignee: assig
+    });
+});
+
+/*
+app.get('/getUser/:name', function(req, res){
+    const userName = req.params.name.toLowerCase();
+    if(userList.hasUser(userName)){
+        res.send({
+            passed: true,
+            user: userList.get(userName)
+        });
+    }
+    else {
+        res.status(404).send({
+            message: "No User Found"
+        })
+    }
+});
+
+ */

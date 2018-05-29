@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>taskpage</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <button ion-button (click)="getAllkindOfTasks()" round>Récupérer toutes les tâches</button>
+  <button ion-button (click)="submit()" round>Valider</button>
+
+    <ion-list no-border>
+
+        <ion-list-header>
+            tâches ménagères
+        </ion-list-header>
+
+  <ion-item *ngFor="let task of allkindOfTasks">
+          <ion-icon name='planet' item-start></ion-icon>
+          <ion-label>{{task}}</ion-label>
+          <ion-label>{{getTasksAssigned(task)}}</ion-label>
+          <ion-note item-end>
+              To the moon
+          </ion-note>
+
+        <!--<ion-checkbox [(ngModel)]="name.Value" ></ion-checkbox> -->
+  </ion-item>
+
+    </ion-list>
+
+
+</ion-content>

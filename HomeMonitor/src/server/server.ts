@@ -30,5 +30,19 @@ export class Server {
     return req;
   }
 
+  getAllKindOfTasks(){
+      var req = new XMLHttpRequest();
+      req.open("GET",this.getAllPath().concat("/getAllKindOfTasks"), false);
+      req.send(null);
+      return req;
+  }
+
+  getTaskAssignee(task){
+    var req = new XMLHttpRequest();
+    req.open("GET", this.getAllPath().concat("/getTaskAssignee/").concat(task),false);
+    req.send(null);
+    return req;
+  }
+
 
 }

@@ -3,6 +3,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
 import {UserProvider} from "../../providers/user/user";
 
+import {TaskpagePage} from "../taskpage/taskpage";
 
 @Component({
   selector: 'page-hobbies',
