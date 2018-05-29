@@ -53,20 +53,21 @@ app.post('/createAd', function(req, res) {
 });
 
 
-app.get('/createUser/:name/:firstname/:password/:mail/:birthday/:pseudo', function(req, res){
+app.post('/createUser', function(req, res){
+    //console.log(req.body);
+    const json = req.body;
+    const name = json['name'].toLowerCase();
+    const firstName = json['firstname'].toLowerCase();
+    const password = json['password'];
+    const mail = json['mail'].toLowerCase();
+    const birthday = json['birthday'];
+    const pseudo = json['pseudo'];
+    const hobbies = json['hobbies'];
 
-    const name = req.params.name.toLowerCase();
-    const firstName = req.params.firstname.toLowerCase();
-    const password = req.params.password;
-    const mail = req.params.mail.toLowerCase();
-    const birthday = req.params.birthday;
-    const pseudo = req.params.pseudo;
 
     if(!userList.hasUser(pseudo)){
-
-        let user = new User(name,firstName,password,mail,birthday,pseudo);
+        let user = new User(name,firstName,password,mail,birthday,pseudo,hobbies);
         userList.push(user);
-
         res.send({
             passed: true,
             user: user

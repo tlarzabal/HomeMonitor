@@ -4,12 +4,13 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { HobbiesPage} from '../pages/hobbies/hobbies';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {ListAdsPage} from "../pages/listAds/listAds";
+import {AdOrFlatsharingPage} from "../pages/adOrFlatsharing/adOrFlatsharing";
 import {CreateAdPage} from "../pages/create-ad/create-ad";
 import { HttpModule } from '@angular/http';
 import { AdProvider } from '../providers/ad/ad';
@@ -21,7 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
   declarations: [
     MyApp,
     HobbiesPage,
-    ContactPage,
+    AdOrFlatsharingPage,
+    ListAdsPage,
     HomePage,
     TabsPage,
     CreateAdPage
@@ -36,7 +38,8 @@ import {HttpClientModule} from "@angular/common/http";
   entryComponents: [
     MyApp,
     HobbiesPage,
-    ContactPage,
+    AdOrFlatsharingPage,
+    ListAdsPage,
     HomePage,
     TabsPage,
     CreateAdPage

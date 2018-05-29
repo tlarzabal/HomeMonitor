@@ -6,15 +6,20 @@
 
 module.exports = class User {
 
-    constructor(name,firstname,password,mail,birthday,pseudo) {
+    constructor(name,firstname,password,mail,birthday,pseudo,hobbies) {
         this.name = name;
         this.firstname = firstname;
         this.password= password;
         this.mail = mail;
         this.birthday=birthday;
         this.pseudo = pseudo;
-
+        this.hobbies = hobbies;
     }
+
+    getHobbies() {
+        return this.hobbies;
+    }
+
     getName() {
         return this.name;
     }

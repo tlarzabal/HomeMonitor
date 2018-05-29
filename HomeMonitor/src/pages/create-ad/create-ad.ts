@@ -1,14 +1,11 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ContactPage} from "../contact/contact";
 
 
-import {Http} from "@angular/http";
-import {Server} from "../../server/server";
 import {AdProvider} from "../../providers/ad/ad";
+import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
 
-let server = new Server();
 
 /**
  * Generated class for the CreateAdPage page.
@@ -31,7 +28,7 @@ export class CreateAdPage {
   formCreateAd() {
 
     this.adProvider.createAd(this.form.value);
-    this.navCtrl.push(ContactPage);
+    this.navCtrl.push(AdOrFlatsharingPage);
   }
 
   constructor(public adProvider: AdProvider, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {

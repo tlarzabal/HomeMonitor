@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import {ContactPage} from "../contact/contact";
+import {NavController, NavParams} from 'ionic-angular';
+import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
+import {UserProvider} from "../../providers/user/user";
+
 
 @Component({
   selector: 'page-hobbies',
@@ -12,11 +14,19 @@ export class HobbiesPage {
     { Name:'Non-Fumeur', Value:false},
     { Name:'Fumeur', Value:false}];
 
-  constructor(public navCtrl: NavController) {
+  pseudo;
 
+  constructor(public userProvider: UserProvider,public navCtrl: NavController,public navParams: NavParams) {
+    this.pseudo =this.navParams.get('pseudo');
   }
 
   submit(){
-    this.navCtrl.push(ContactPage);
+    let data: string[]=[];
+    this.names.forEach(function(element) {
+      if(element.Value)
+        data.push(element.Name);
+    });
+    this.userProvider.createUser(this.pseudo,data);
+    this.navCtrl.push(AdOrFlatsharingPage);
   }
 }
