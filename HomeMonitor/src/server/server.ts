@@ -44,5 +44,12 @@ export class Server {
     return req;
   }
 
+  getShoppingListItem(){
+    var req = new XMLHttpRequest();
+    req.open("GET", this.getAllPath().concat("/getItems"), false);
+    req.send(null);
+    return req;
+  }
+
 
 }

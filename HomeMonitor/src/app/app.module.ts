@@ -20,6 +20,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 
 import {TaskpagePage} from "../pages/taskpage/taskpage";
+import {ShoppingListPage} from "../pages/shopping-list/shopping-list";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {TaskpagePage} from "../pages/taskpage/taskpage";
     HomePage,
     TabsPage,
       TaskpagePage,
+    ShoppingListPage,
     TabsPage,
     CreateAdPage
   ],
@@ -50,6 +52,7 @@ import {TaskpagePage} from "../pages/taskpage/taskpage";
     ListAdsPage,
     HomePage,
     TabsPage,
+        ShoppingListPage,
     CreateAdPage
   ],
   providers: [
