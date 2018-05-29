@@ -19,6 +19,9 @@ let server = new Server();
 export class TaskpagePage {
 
       allkindOfTasks;
+      tasktoBeAssigned;
+      nameToBeAssigned;
+        choice = 'all';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.getAllkindOfTasks();
@@ -43,6 +46,17 @@ export class TaskpagePage {
   }
 
   submit(){
-      this.getTasksAssigned("vaisselle");
   }
+
+  reqAssigneTask(task, name){
+    if (task != "" && name != ""){
+        server.createNewTask(task);
+        server.assigneTask(task, name);
+    }
+    this.navCtrl.pop();
+    this.navCtrl.push(TaskpagePage);
+
+
+ }
+
 }

@@ -40,7 +40,7 @@ module.exports = class Task {
         }
     }
 
-    deleteAssignement(task, name){
+    deleteAssignement(task){
         this.tasks.delete(task);
     }
 
@@ -48,7 +48,7 @@ module.exports = class Task {
         if(this.tasks.has(task.toLowerCase())){
             return this.tasks.get(task);
         }else{
-            return "Aucun membre assigné.";
+            return "Aucun.";
         }
 
     }

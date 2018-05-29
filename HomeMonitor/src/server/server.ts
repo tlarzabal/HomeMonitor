@@ -1,6 +1,7 @@
 /**
  * Created by thiba on 29/05/2018.
  */
+import {flattenStyles} from "@angular/platform-browser/src/dom/dom_renderer";
 
 export class Server {
 
@@ -30,6 +31,12 @@ export class Server {
     return req;
   }
 
+  createNewTask(task){
+      var req = new XMLHttpRequest();
+      req.open("GET", this.getAllPath().concat("/createNewTask/").concat(task),false);
+      req.send(null);
+      return req;
+  }
   getAllKindOfTasks(){
       var req = new XMLHttpRequest();
       req.open("GET",this.getAllPath().concat("/getAllKindOfTasks"), false);
@@ -44,6 +51,19 @@ export class Server {
     return req;
   }
 
+  doTask(task){
+    var req = new XMLHttpRequest();
+    req.open("GET", this.getAllPath().concat("/doTask/").concat(task), false);
+    req.send(null);
+    return req;
+  }
+
+  assigneTask(task, name){
+    var req = new XMLHttpRequest();
+    req.open("GET", this.getAllPath().concat("/assigneTask/").concat(task).concat("/").concat(name),false);
+    req.send(null);
+    return req;
+  }
   getShoppingListItem(){
     var req = new XMLHttpRequest();
     req.open("GET", this.getAllPath().concat("/getItems"), false);

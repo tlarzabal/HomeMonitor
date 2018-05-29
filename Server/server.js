@@ -141,3 +141,28 @@ app.get('/getTaskAssignee/:task', function(req, res){
         assignee: assig
     });
 });
+
+app.get('/doTask/:task', function(req, res){
+    const t = req.params.task.toLowerCase();
+    this.task.deleteAssignement(t);
+    res.send({
+        passed: true
+    });
+});
+
+app.get('/assigneTask/:task/:name', function(req, res){
+    const t = req.params.task.toLowerCase();
+    const n = req.params.name.toLowerCase();
+    task.assigneTask(t,n);
+    res.send({
+        passed: true
+    });
+});
+
+app.get('/createNewTask/:task', function(req, res){
+    const t = req.params.task.toLowerCase();
+    task.addTask(t);
+    res.send({
+        status: true
+    });
+});
