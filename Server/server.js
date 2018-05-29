@@ -47,13 +47,9 @@ app.get('/getUser/:name', function(req, res){
     }
 });
 
-app.post('/createAd', function(req, res){
+app.post('/createAd', function(req, res) {
     console.log(req.body.value);
-    //console.log(req.body.description);
-    res.send({
-        passed: true,
-        user: user
-    });
+
 });
 
 

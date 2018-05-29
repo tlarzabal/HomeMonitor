@@ -12,6 +12,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {CreateAdPage} from "../pages/create-ad/create-ad";
 import { HttpModule } from '@angular/http';
+import { AdProvider } from '../providers/ad/ad';
+import { UserProvider } from '../providers/user/user';
+import {HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -40,6 +45,8 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AdProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

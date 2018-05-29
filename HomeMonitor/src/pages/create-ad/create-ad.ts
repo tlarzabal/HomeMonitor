@@ -6,6 +6,7 @@ import {ContactPage} from "../contact/contact";
 
 import {Http} from "@angular/http";
 import {Server} from "../../server/server";
+import {AdProvider} from "../../providers/ad/ad";
 
 let server = new Server();
 
@@ -30,7 +31,8 @@ export class CreateAdPage {
 
   formCreateAd() {
 
-
+  this.adProvider.createAd(this.form.value);
+  /*
     this.http.post('http://localhost:8080/createAd', {
       //title: this.form.value['title'],
       //description: this.form.value['description']
@@ -44,12 +46,12 @@ export class CreateAdPage {
           console.log("Error occured");
         }
       );
-
+*/
 
       this.navCtrl.push(ContactPage);
   }
 
-  constructor(private http: Http,public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
+  constructor(public adProvider:AdProvider,public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       adress: ['', Validators.required],
