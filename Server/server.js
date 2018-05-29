@@ -16,6 +16,10 @@ app.use(methodOverride());
 app.use(cors());
 app.use(express.static('media'));
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 console.log("HomeMonitor Server");
 
 const http = require('http').Server(app);
@@ -26,7 +30,7 @@ let userList = new UserList;
  * Partie API
  */
 
-
+var adList=[];
 
 app.get('/getUser/:name', function(req, res){
     const userName = req.params.name.toLowerCase();
@@ -41,6 +45,15 @@ app.get('/getUser/:name', function(req, res){
             message: "No User Found"
         })
     }
+});
+
+app.post('/createAd', function(req, res){
+    console.log(req.body.value);
+    //console.log(req.body.description);
+    res.send({
+        passed: true,
+        user: user
+    });
 });
 
 
