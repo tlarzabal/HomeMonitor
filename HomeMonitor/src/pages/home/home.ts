@@ -3,6 +3,7 @@ import { HobbiesPage } from '../hobbies/hobbies';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import {Server} from "../../server/server";
 import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
@@ -19,7 +20,6 @@ export class HomePage {
   private form : FormGroup;
 
   logForm() {
-
     var req = server.getUser(this.form.value['pseudo']);
     console.log(req.status);
     if (req.status === 200) {
@@ -30,9 +30,10 @@ export class HomePage {
     data['pseudo'] = this.form.value['pseudo'];
       this.navCtrl.push(HobbiesPage,data);
     }
+    this.storage.set("currentUser", this.form.value['pseudo']);
   }
 
-  constructor(public navCtrl: NavController, private formBuilder: FormBuilder ) {
+  constructor(public storage: Storage ,public navCtrl: NavController, private formBuilder: FormBuilder ) {
     this.form = this.formBuilder.group({
       pseudo: ['', Validators.required]
     });

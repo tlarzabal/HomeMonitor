@@ -3,6 +3,10 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
+import { Storage } from '@ionic/storage';
+
+
+import {Server} from "../../server/server";
 import {AdProvider} from "../../providers/ad/ad";
 import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
 
@@ -24,14 +28,26 @@ export class CreateAdPage {
 
 
   private form: FormGroup;
-
+  private currentUser;
   formCreateAd() {
 
-    this.adProvider.createAd(this.form.value);
+    this.adProvider.createAd(this.form.value,this.currentUser);
     this.navCtrl.push(AdOrFlatsharingPage);
   }
 
-  constructor(public adProvider: AdProvider, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+  constructor(public storage:Storage,public adProvider: AdProvider, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+
+    this.storage.get("currentUser").then((data) => {
+      if(data != null){
+        console.log("currentUser : "+ data);
+        this.currentUser = data;
+      }
+      else {
+        console.log("NOT CONNECTED");
+      }
+
+    });
+
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       adress: ['', Validators.required],

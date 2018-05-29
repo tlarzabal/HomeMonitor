@@ -18,8 +18,8 @@ export class AdProvider {
   }
 
 
-  createAd(value) {
-    this.http.post(this.server.getAllPath().concat('/createAd'), {
+  createAd(value,currentUser) {
+    this.http.post(this.server.getAllPath().concat('/createAd/').concat(currentUser), {
       //title: this.form.value['title'],
       //description: this.form.value['description']
       value: value

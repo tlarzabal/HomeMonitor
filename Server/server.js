@@ -2,6 +2,7 @@
 
 let User = require("./models/user.js");
 let UserList = require("./models/userList.js");
+let Ad = require("./models/ad.js");
 let Task = require("./models/task.js");
 
 const express = require('express');
@@ -50,10 +51,36 @@ app.get('/getUser/:name', function(req, res){
     }
 });
 
-app.post('/createAd', function(req, res) {
-    console.log(req.body.value);
+app.post('/createAd/:name', function(req, res) {
+    const userName = req.params.name.toLowerCase();
+    if(userList.hasUser(userName)){
 
-});
+        const json = req.body;
+        const title = json['title'];
+        const rent = json['rent'];
+        const nbMaxRoomMates = json['nbMaxRoomMates'];
+        const description = json['description'];
+        const adress = json['adress'];
+        const area = json['area'];
+
+        let user = userList.get(userName);
+        let ad = new Ad(user,title,rent,nbMaxRoomMates,area,description,adress);
+
+        adList.push(ad);
+
+
+        res.send({
+            passed: true,
+            user: user
+        });
+
+    } else {
+        res.status(404).send({
+            message: "No User Found"
+        });
+    }
+
+    });
 
 
 app.post('/createUser', function(req, res){
@@ -102,21 +129,3 @@ app.get('/getTaskAssignee/:task', function(req, res){
         assignee: assig
     });
 });
-
-/*
-app.get('/getUser/:name', function(req, res){
-    const userName = req.params.name.toLowerCase();
-    if(userList.hasUser(userName)){
-        res.send({
-            passed: true,
-            user: userList.get(userName)
-        });
-    }
-    else {
-        res.status(404).send({
-            message: "No User Found"
-        })
-    }
-});
-
- */

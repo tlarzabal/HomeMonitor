@@ -16,6 +16,8 @@ import { HttpModule } from '@angular/http';
 import { AdProvider } from '../providers/ad/ad';
 import { UserProvider } from '../providers/user/user';
 import {HttpClientModule} from "@angular/common/http";
+import { IonicStorageModule } from '@ionic/storage';
+
 
 import {TaskpagePage} from "../pages/taskpage/taskpage";
 
@@ -34,6 +36,7 @@ import {TaskpagePage} from "../pages/taskpage/taskpage";
   imports: [
     BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
