@@ -4,6 +4,8 @@ let User = require("./models/user.js");
 let UserList = require("./models/userList.js");
 let Ad = require("./models/ad.js");
 let Task = require("./models/task.js");
+let ShoppingList = require("./models/shoppingList.js");
+
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -27,7 +29,7 @@ console.log("HomeMonitor Server");
 const http = require('http').Server(app);
 const server = app.listen(process.env.PORT || 8080);
 let userList = new UserList;
-
+let shoppingList = new ShoppingList;
 let task = new Task;
 
 /**
@@ -110,6 +112,16 @@ app.post('/createUser', function(req, res){
         });
     }
 });
+
+app.get('/getItems', function(req, res){
+    let item = shoppingList.getItems();
+    console.log(item);
+    res.send({
+        passed: true,
+        item: item
+    });
+});
+
 
 app.get('/getAllKindOfTasks', function(req, res){
     let kindTask = task.getKindOfTasks();
