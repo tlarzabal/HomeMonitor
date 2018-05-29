@@ -20,7 +20,6 @@ console.log("HomeMonitor Server");
 
 const http = require('http').Server(app);
 const server = app.listen(process.env.PORT || 8080);
-
 let userList = new UserList;
 
 /**

@@ -11,5 +11,9 @@
     <ion-label>{{name.Name}}</ion-label>
     <ion-checkbox [(ngModel)]="name.Value" ></ion-checkbox>
   </ion-item>
-  <button ion-button (click)="submit()" round>Valider</button>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <button ion-button (click)="submit()" round>Valider</button>
+    </ion-col>
+  </ion-row>
 </ion-content>
