@@ -61,7 +61,7 @@ app.post('/createUser', function(req, res){
     const password = json['password'];
     const mail = json['mail'].toLowerCase();
     const birthday = json['birthday'];
-    const pseudo = json['pseudo'];
+    const pseudo = json['pseudo'].toLowerCase();
     const hobbies = json['hobbies'];
 
 
