@@ -5,6 +5,7 @@ let UserList = require("./models/userList.js");
 let Ad = require("./models/ad.js");
 let Task = require("./models/task.js");
 let ShoppingList = require("./models/shoppingList.js");
+let Event = require("./models/event.js");
 
 
 const express = require('express');
@@ -32,6 +33,7 @@ let userList = new UserList;
 let shoppingList = new ShoppingList;
 let task = new Task;
 var adList=[];
+var eventList=[];
 
 /**
  * Partie API
@@ -39,12 +41,12 @@ var adList=[];
 
 
 
-app.get('/getUser/:name', function(req, res){
-    const userName = req.params.name.toLowerCase();
-    if(userList.hasUser(userName)){
+app.get('/getUser/:pseudo', function(req, res){
+    const idUser = req.params.pseudo.toLowerCase();
+    if(userList.hasUser(idUser)){
         res.send({
             passed: true,
-            user: userList.get(userName)
+            user: userList.get(idUser)
         });
     }
     else {
@@ -54,9 +56,9 @@ app.get('/getUser/:name', function(req, res){
     }
 });
 
-app.post('/createAd/:name', function(req, res) {
-    const userName = req.params.name.toLowerCase();
-    if(userList.hasUser(userName)){
+app.post('/createAd/:pseudo', function(req, res) {
+    const idUser = req.params.pseudo.toLowerCase();
+    if(userList.hasUser(idUser)){
 
         const json = req.body.value;
         const title = json['title'];
@@ -66,8 +68,7 @@ app.post('/createAd/:name', function(req, res) {
         const adress = json['adress'];
         const area = json['area'];
 
-        let user = userList.get(userName);
-        let ad = new Ad(user,title,rent,nbMaxRoomMates,area,description,adress);
+        let ad = new Ad(idUser,title,rent,nbMaxRoomMates,area,description,adress);
 
         adList.push(ad);
 
@@ -84,6 +85,32 @@ app.post('/createAd/:name', function(req, res) {
     }
 
     });
+
+app.post('/createEvent/:pseudo', function(req, res) {
+    const idUser = req.params.pseudo.toLowerCase();
+    if(userList.hasUser(idUser)){
+
+        const json = req.body.value;
+        const title = json['title'];
+        const dateEvent = json['dateEvent'];
+        const description = json['description'];
+        const adress = json['adress'];
+
+        let event = new Event(idUser,title,dateEvent,description,adress);
+
+        eventList.push(event);
+
+        res.send({
+            passed: true,
+            user: idUser
+        });
+
+    } else {
+        res.status(404).send({
+            message: "No User Found"
+        });
+    }
+});
 
 
 app.post('/createUser', function(req, res){
@@ -175,15 +202,15 @@ app.get('/getAllAds', function(req, res){
 
 app.get('/doTask/:task', function(req, res){
     const t = req.params.task.toLowerCase();
-    this.task.deleteAssignement(t);
+    task.deleteAssignement(t);
     res.send({
         passed: true
     });
 });
 
-app.get('/assigneTask/:task/:name', function(req, res) {
+app.get('/assigneTask/:task/:pseudo', function(req, res) {
     const t = req.params.task.toLowerCase();
-    const n = req.params.name.toLowerCase();
+    const n = req.params.pseudo.toLowerCase();
     let result = task.assigneTask(t, n);
 
     if (result) {
@@ -203,5 +230,17 @@ app.get('/createNewTask/:task', function(req, res){
     task.addTask(t);
     res.send({
         status: true
+    });
+});
+
+app.get('/getTaskofUser/:user',function(req, res){
+    const usr = req.params.user.toLowerCase();
+    let tab = task.getTaskofUser(usr);
+    console.log(tab.length);
+    console.log("USER : ");
+    console.log(usr);
+    res.send({
+        passed: true,
+        result: tab
     });
 });

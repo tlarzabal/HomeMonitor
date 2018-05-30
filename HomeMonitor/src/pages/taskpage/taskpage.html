@@ -1,16 +1,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>taskpage</ion-title>
+    <ion-title>Tâches ménagères</ion-title>
   </ion-navbar>
 
     <ion-toolbar color="light">
         <ion-segment [(ngModel)]="choice">
             <ion-segment-button value="all">
-                All
+                Toutes Les Tâches
             </ion-segment-button>
-            <ion-segment-button value="mine">
-                Mine
+            <ion-segment-button value="mine" (click)="reqGetTaskofUser(currentUser)">
+                Mes Tâches
             </ion-segment-button>
             <ion-segment-button value="create">
                 <ion-icon name="create"></ion-icon>
@@ -26,46 +26,34 @@
             <ion-list>
 
 
-                <ion-item *ngFor="let task of allkindOfTasks">
-                    <ion-label style="text-align: left">{{task}}</ion-label>
-                    <ion-label style="text-align: center">{{getTasksAssigned(task)}}</ion-label>
-                    <ion-checkbox style="align-items: right"></ion-checkbox>
-
+                <ion-item *ngFor="let task of done">
+                    <ion-label style="text-align: left">{{task.Task}}</ion-label>
+                    <ion-label style="text-align: center">{{getTasksAssigned(task.Task)}}</ion-label>
+                    <ion-checkbox [(ngModel)]="task.Value"></ion-checkbox>
                 </ion-item>
-                <button ion-button color="dark" (click)="submit()" style="text-align: center" item-right="" round>Mettre à jour les tâches</button>
+
+                <button align-items-center="" ion-button color="dark" (click)="reqDoTask()" style="text-align: center"  round>Supprimer ces tâches</button>
             </ion-list>
         </ion-list>
         <ion-list *ngSwitchCase="'mine'">
-            <ion-label>Prochaînement</ion-label>
             <ion-list>
-
-
-                <ion-item *ngFor="let task of allkindOfTasks">
+                <ion-item *ngFor="let task of taskOfCurrentuser">
                     <ion-label style="text-align: left">{{task}}</ion-label>
-                    <ion-label style="text-align: center">{{getTasksAssigned(task)}}</ion-label>
-                    <ion-checkbox style="align-items: right"></ion-checkbox>
-
                 </ion-item>
-                <button ion-button color="dark" (click)="submit()" style="text-align: center" item-right="" round>Mettre à jour les tâches</button>
             </ion-list>
         </ion-list>
 
         <ion-list *ngSwitchCase="'create'">
-            <ion-list>
+            <form [formGroup]="form" (ngSubmit)="logForm()">
+                <ion-input align-items-center="" text-center="" placeholder="Tâche ménagère" [(ngModel)]="form.tache" name="tache" formControlName="tache" type="text"></ion-input>
+                <ion-input align-items-center="" text-center="" placeholder="Membre de la colocation" [(ngModel)]="form.membre" name="membre" formControlName="membre" type="text"></ion-input>
+            <ion-row>
+                <ion-col width-50 style="text-align: center">
+                    <button ion-button type="submit" [disabled]="!form.valid" round>Assigner</button>
+                </ion-col>
+            </ion-row>
+            </form>
 
-                <ion-item>
-                    <ion-input type="text" placeholder="Tâche ménagère" [(ngModel)]="tasktoBeAssigned"></ion-input>
-                </ion-item>
-
-                <ion-item>
-                    <ion-input type="text" placeholder="Membre de la colocation" [(ngModel)]="nameToBeAssigned"></ion-input>
-                </ion-item>
-
-            </ion-list>
-
-
-
-            <button ion-button  color="dark" (click)="reqAssigneTask(tasktoBeAssigned, nameToBeAssigned)" round>Assigner</button>
         </ion-list>
     </div>
 

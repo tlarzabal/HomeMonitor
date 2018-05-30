@@ -1,15 +1,15 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import {Server} from "../../server/server";
 
 /*
-  Generated class for the AdProvider provider.
+  Generated class for the EventProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class AdProvider {
+export class EventProvider {
 
   public server;
 
@@ -18,9 +18,9 @@ export class AdProvider {
   }
 
 
-  createAd(value,currentUser) {
+  createEvent(value,currentUser) {
     console.log(value);
-    this.http.post(this.server.getAllPath().concat('/createAd/').concat(currentUser), {
+    this.http.post(this.server.getAllPath().concat('/createEvent/').concat(currentUser), {
       value: value
     })
       .subscribe(

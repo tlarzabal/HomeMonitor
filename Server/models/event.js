@@ -2,10 +2,10 @@
 
 module.exports = class Event {
 
-    constructor(title, idUserCreator, dateEvent, description, adress) {
+    constructor(idUserCreator,title, dateEvent, description, adress) {
 
-        this.tile = title;
         this.idUserCreator = idUserCreator;
+        this.title = title;
         this.dateEvent = dateEvent;
         this.creationDate = Date.now();
         this.description = description;
@@ -22,7 +22,7 @@ module.exports = class Event {
     }
 
     removeParticipant(idParticipant){
-        var index = this.participant.indexOf(idParticipant;
+        var index = this.participant.indexOf(idParticipant);
         if (index > -1) {
             this.participant.splice(index, idParticipant);
         }
