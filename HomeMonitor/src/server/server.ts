@@ -44,6 +44,14 @@ export class Server {
       return req;
   }
 
+
+  getListAds(){
+    var req = new XMLHttpRequest();
+    req.open("GET",this.getAllPath().concat("/getAllAds"), false);
+    req.send(null);
+    return req;
+  }
+
   getTaskAssignee(task){
     var req = new XMLHttpRequest();
     req.open("GET", this.getAllPath().concat("/getTaskAssignee/").concat(task),false);
@@ -64,6 +72,7 @@ export class Server {
     req.send(null);
     return req;
   }
+
   getShoppingListItem(){
     var req = new XMLHttpRequest();
     req.open("GET", this.getAllPath().concat("/getItems"), false);

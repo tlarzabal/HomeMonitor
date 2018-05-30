@@ -57,7 +57,7 @@ app.post('/createAd/:name', function(req, res) {
     const userName = req.params.name.toLowerCase();
     if(userList.hasUser(userName)){
 
-        const json = req.body;
+        const json = req.body.value;
         const title = json['title'];
         const rent = json['rent'];
         const nbMaxRoomMates = json['nbMaxRoomMates'];
@@ -140,6 +140,15 @@ app.get('/getTaskAssignee/:task', function(req, res){
         passed: true,
         assignee: assig
     });
+});
+
+
+app.get('/getAllAds', function(req, res){
+    res.send({
+        passed: true,
+        ads: adList
+    });
+    console.log(adList);
 });
 
 app.get('/doTask/:task', function(req, res){

@@ -1,3 +1,20 @@
-<ion-content padding>
-<h2>coucou rom</h2>
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Annonces</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list no-border>
+
+
+    <ion-item *ngFor="let ad of listAds">
+      <ion-label>{{ad.title}}</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+
 </ion-content>

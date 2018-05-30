@@ -10,7 +10,7 @@
       <button ion-button (click)="addAd()" color="dark" round><ion-icon ios="ios-add" md="md-add"></ion-icon>&nbsp; Ajouter une annonce</button>
     </ion-col>
   </ion-row>
-  <ion-row *ngIf="!hasFlatsharing"> <!-- Enlever le "!" -->
+  <ion-row align-items-center *ngIf="!hasFlatsharing"> <!-- Enlever le "!" -->
     <ion-col width-50 style="text-align: center">
       <button ion-button color="dark" (click)="flatsharing()" round> <ion-icon ios="ios-home"  md="md-home"></ion-icon>&nbsp; Ma colocation </button>
     </ion-col>
