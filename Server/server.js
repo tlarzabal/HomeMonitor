@@ -31,12 +31,13 @@ const server = app.listen(process.env.PORT || 8080);
 let userList = new UserList;
 let shoppingList = new ShoppingList;
 let task = new Task;
+var adList=[];
 
 /**
  * Partie API
  */
 
-var adList=[];
+
 
 app.get('/getUser/:name', function(req, res){
     const userName = req.params.name.toLowerCase();
