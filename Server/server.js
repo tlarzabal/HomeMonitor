@@ -2,13 +2,13 @@
 
 let User = require("./models/user.js");
 let UserList = require("./models/userList.js");
-let AdList = require("./models/adList.js");
 let Ad = require("./models/ad.js");
 let Task = require("./models/task.js");
 let ShoppingList = require("./models/shoppingList.js");
+let Event = require("./models/event.js");
+let AdList = require("./models/adList.js");
 let Flatsharing = require("./models/flatsharing.js");
 let FlatsharingList = require("./models/flatsharingList.js");
-let Event = require("./models/event.js");
 
 
 const express = require('express');
@@ -32,6 +32,9 @@ console.log("HomeMonitor Server");
 
 const http = require('http').Server(app);
 const server = app.listen(process.env.PORT || 8080);
+var io = require('socket.io').listen(server);
+
+
 let userList = new UserList;
 let shoppingList = new ShoppingList;
 let task = new Task;
@@ -106,6 +109,8 @@ app.post('/createAd/:pseudo', function (req, res) {
         flatsharingList.push(flatsharing);
         ad.pushRoomMates(idUser);
         adList.push(ad);
+
+
         res.send({
             passed: true,
             user: idUser
@@ -135,7 +140,7 @@ app.post('/createEvent/:pseudo', function (req, res) {
 
         res.send({
             passed: true,
-            user: idUser
+            events: eventList
         });
 
     } else {
@@ -143,6 +148,13 @@ app.post('/createEvent/:pseudo', function (req, res) {
             message: "No User Found"
         });
     }
+});
+
+app.get('/getAllEvents', function (req, res) {
+    res.send({
+        passed: true,
+        events: eventList
+    });
 });
 
 
@@ -183,8 +195,8 @@ app.get('/getItems', function (req, res) {
     });
 });
 
-app.get('/deleteItem/:name', function(req, res){
-    const t = req.params.name;
+app.get('/deleteItems/:pseudo', function (req, res) {
+    const t = req.params.pseudo;
     let items = shoppingList.deleteItem(t);
     console.log(items);
     res.send({
@@ -194,8 +206,8 @@ app.get('/deleteItem/:name', function(req, res){
 });
 
 
-app.get('/addItem/:name', function(req, res){
-    const t = req.params.name;
+app.get('/addItem/:pseudo', function(req, res){
+    const t = req.params.pseudo;
     let items = shoppingList.addItem(t);
     console.log(items);
     res.send({
@@ -205,7 +217,7 @@ app.get('/addItem/:name', function(req, res){
 });
 
 
-app.get('/getAllKindOfTasks', function(req, res){
+app.get('/getAllKindOfTasks', function (req, res) {
     let kindTask = task.getKindOfTasks();
     console.log(kindTask);
     res.send({
@@ -274,8 +286,8 @@ app.get('/createNewTask/:task', function (req, res) {
     });
 });
 
-app.get('/getTaskofUser/:user', function (req, res) {
-    const usr = req.params.user.toLowerCase();
+app.get('/getTaskofUser/:pseudo', function (req, res) {
+    const usr = req.params.pseudo.toLowerCase();
     let tab = task.getTaskofUser(usr);
     console.log(tab.length);
     console.log("USER : ");
@@ -285,3 +297,39 @@ app.get('/getTaskofUser/:user', function (req, res) {
         result: tab
     });
 });
+
+
+
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+
+    console.log('Un client est connecté !');
+
+    socket.on('createEvent', function (data) {
+
+
+        const idUser = data['idUser'].toLowerCase();
+        if (userList.hasUser(idUser)) {
+
+            const json = data['value'];
+            const title = json['title'];
+            const dateEvent = json['dateEvent'];
+            const description = json['description'];
+            const adress = json['adress'];
+
+            let event = new Event(idUser, title, dateEvent, description, adress);
+
+            eventList.push(event);
+
+            console.log('recpetion du message venant de la socket');
+            console.log(eventList);
+
+            io.emit('addedEvent',{events: eventList});
+        }
+
+
+    });
+
+});
+
+

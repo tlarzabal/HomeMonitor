@@ -26,11 +26,12 @@ export class EventProvider {
       .subscribe(
         res => {
           console.log(res);
-        },
-        err => {
-          console.log("Error occured");
         }
       );
+  }
+
+  getAllEvents(){
+    return this.http.get(this.server.getAllPath().concat('/getAllEvents'));
   }
 
 }

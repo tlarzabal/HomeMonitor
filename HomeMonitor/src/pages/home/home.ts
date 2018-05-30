@@ -4,9 +4,10 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { Socket } from 'ng-socket-io';
 import {Server} from "../../server/server";
 import {AdOrFlatsharingPage} from "../Ads/adOrFlatsharing/adOrFlatsharing";
+
 
 let server = new Server();
 
@@ -30,10 +31,11 @@ export class HomePage {
     data['pseudo'] = this.form.value['pseudo'];
       this.navCtrl.push(HobbiesPage,data);
     }
+    this.socket.connect();
     this.storage.set("currentUser", this.form.value['pseudo']);
   }
 
-  constructor(public storage: Storage ,public navCtrl: NavController, private formBuilder: FormBuilder ) {
+  constructor(private socket: Socket,public storage: Storage ,public navCtrl: NavController, private formBuilder: FormBuilder ) {
     this.form = this.formBuilder.group({
       pseudo: ['', Validators.required]
     });

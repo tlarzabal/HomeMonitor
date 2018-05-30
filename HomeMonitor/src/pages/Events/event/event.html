@@ -20,9 +20,16 @@
   <ion-list no-border>
 
 
-    <ion-item *ngFor="let ad of listAds">
-      <ion-label>{{ad.title}}</ion-label>
-    </ion-item>
+    <ion-list no-border>
+
+      <ion-item *ngFor="let event of listEvents">
+        <ion-label>{{event.title}}</ion-label>
+       <!-- <ion-label>{{event.dateEvent}}</ion-label>
+        <ion-label>{{event.adress}}</ion-label>
+        <ion-label>{{event.description}}</ion-label> -->
+      </ion-item>
+
+    </ion-list>
 
   </ion-list>
 

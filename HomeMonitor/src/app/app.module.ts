@@ -24,6 +24,9 @@ import {TaskpagePage} from "../pages/taskpage/taskpage";
 import {EventPage} from "../pages/Events/event/event";
 import { EventProvider } from '../providers/event/event';
 import {CreateEventPage} from "../pages/Events/create-event/create-event";
+import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
+
+const config: SocketIoConfig = { url: "http://localhost:8080", options: {} };
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import {CreateEventPage} from "../pages/Events/create-event/create-event";
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
+    SocketIoModule.forRoot(config),
     HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
