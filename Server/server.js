@@ -123,6 +123,16 @@ app.get('/getItems', function(req, res){
     });
 });
 
+app.get('/deleteItems/:name', function(req, res){
+    const t = req.params.name;
+    let items = shoppingList.deleteItem(t);
+    console.log(items);
+    res.send({
+        passed: true,
+        item: items
+    });
+});
+
 
 app.get('/getAllKindOfTasks', function(req, res){
     let kindTask = task.getKindOfTasks();
@@ -160,13 +170,21 @@ app.get('/doTask/:task', function(req, res){
     });
 });
 
-app.get('/assigneTask/:task/:name', function(req, res){
+app.get('/assigneTask/:task/:name', function(req, res) {
     const t = req.params.task.toLowerCase();
     const n = req.params.name.toLowerCase();
-    task.assigneTask(t,n);
-    res.send({
-        passed: true
-    });
+    let result = task.assigneTask(t, n);
+
+    if (result) {
+        res.send({
+            passed: true
+        });
+    } else {
+        res.status(404).send({
+            passed: true
+        });
+    }
+
 });
 
 app.get('/createNewTask/:task', function(req, res){

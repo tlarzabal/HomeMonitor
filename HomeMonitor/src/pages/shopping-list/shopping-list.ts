@@ -29,7 +29,15 @@ export class ShoppingListPage {
   }
 
   getItems(){
-    var req = server.getShoppingListItem();
+    var req = server.getShoppingListItems();
+    let obj = JSON.parse(req.responseText);
+    console.log(obj.item);
+    this.items = obj.item;
+  }
+
+  deleteItem(name){
+    var req = server.deleteShoppingListItem(name);
+    console.log(req.responseText)
     let obj = JSON.parse(req.responseText);
     console.log(obj.item);
     this.items = obj.item;

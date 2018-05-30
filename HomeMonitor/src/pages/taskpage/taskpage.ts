@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 
 import {Server} from "../../server/server";
+import {TabsPage} from "../tabs/tabs";
 let server = new Server();
 
 /**
@@ -23,7 +24,7 @@ export class TaskpagePage {
       nameToBeAssigned;
         choice = 'all';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.getAllkindOfTasks();
   }
 
@@ -50,12 +51,35 @@ export class TaskpagePage {
 
   reqAssigneTask(task, name){
     if (task != "" && name != ""){
+        console.log("ok");
         server.createNewTask(task);
-        server.assigneTask(task, name);
-    }
-    this.navCtrl.pop();
-    this.navCtrl.push(TaskpagePage);
+        var req = server.assigneTask(task, name);
 
+        if (req.status == 404){
+            let toast = this.toastCtrl.create({
+                message: "Tâche déjà assignée",
+                duration: 5000,
+                showCloseButton: true,
+            });
+            toast.present();
+        }else{
+            let toast = this.toastCtrl.create({
+                message: "Tâche ajoutée",
+                duration: 5000,
+                showCloseButton: true,
+            });
+            toast.present();
+            this.navCtrl.push(TaskpagePage);
+        }
+
+    }else {
+        let toast = this.toastCtrl.create({
+            message: "Champs incomplets",
+            duration: 5000,
+            showCloseButton: true,
+        });
+        toast.present();
+    }
 
  }
 

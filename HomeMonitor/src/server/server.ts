@@ -73,9 +73,16 @@ export class Server {
     return req;
   }
 
-  getShoppingListItem(){
+  getShoppingListItems(){
     var req = new XMLHttpRequest();
     req.open("GET", this.getAllPath().concat("/getItems"), false);
+    req.send(null);
+    return req;
+  }
+
+  deleteShoppingListItem(name){
+    var req = new XMLHttpRequest();
+    req.open("GET", this.getAllPath().concat("/deleteItems/").concat(name),false);
     req.send(null);
     return req;
   }
