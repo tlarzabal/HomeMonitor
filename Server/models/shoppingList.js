@@ -12,6 +12,14 @@ module.exports = class shoppingList {
         return this.items;
     }
 
+    addItem(name){
+        if (name!=="") {
+            this.items.push(name);
+            this.assignValueDefault(name);
+        }
+        return this.items;
+    }
+
     deleteItem(name){
         this.list.delete(name)
         this.list.clear();
