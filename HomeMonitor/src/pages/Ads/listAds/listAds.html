@@ -1,20 +1,31 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Annonces</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 <ion-content>
   <ion-list no-border>
-
-
     <ion-item *ngFor="let ad of listAds">
-      <ion-label>{{ad.title}}</ion-label>
+      <ion-row >
+        <ion-col col-10 >
+      <span class="text">{{ad.title}}</span>
+        </ion-col>
+        <ion-col col-2  class="icon" *ngIf=" (ad.demandsId.indexOf(currentUser) === -1 && ad.roomMatesId.indexOf(currentUser) === -1)">
+        <button ion-button icon-only (click)="join(ad.title)"  clear>
+          <ion-icon ios="ios-person-add" md="md-person-add"  color="primary"></ion-icon>
+      </button>
+        </ion-col>
+        <ion-col col-2 class="icon" *ngIf=" ad.demandsId.indexOf(currentUser) !== -1">
+          <button ion-button icon-only  clear>
+          <ion-icon ios="ios-paper-plane" md="md-paper-plane"   color="yellow"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-2 class="icon" *ngIf=" ad.roomMatesId.indexOf(currentUser) !== -1">
+          <button ion-button icon-only  clear>
+            <ion-icon ios="ios-checkmark-circle-outline" md="md-checkmark-circle-outline" color = "green"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
     </ion-item>
-
   </ion-list>
-
-
 </ion-content>

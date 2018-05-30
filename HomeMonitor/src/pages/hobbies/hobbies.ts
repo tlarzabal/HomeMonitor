@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
+import {AdOrFlatsharingPage} from "../Ads/adOrFlatsharing/adOrFlatsharing";
 import {UserProvider} from "../../providers/user/user";
 
 import {TaskpagePage} from "../taskpage/taskpage";

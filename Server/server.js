@@ -2,9 +2,12 @@
 
 let User = require("./models/user.js");
 let UserList = require("./models/userList.js");
+let AdList = require("./models/adList.js");
 let Ad = require("./models/ad.js");
 let Task = require("./models/task.js");
 let ShoppingList = require("./models/shoppingList.js");
+let Flatsharing = require("./models/flatsharing.js");
+let FlatsharingList = require("./models/flatsharingList.js");
 let Event = require("./models/event.js");
 
 
@@ -32,8 +35,9 @@ const server = app.listen(process.env.PORT || 8080);
 let userList = new UserList;
 let shoppingList = new ShoppingList;
 let task = new Task;
-var adList=[];
-var eventList=[];
+var adList = new AdList;
+let flatsharingList = new FlatsharingList;
+var eventList = [];
 
 /**
  * Partie API
@@ -41,9 +45,9 @@ var eventList=[];
 
 
 
-app.get('/getUser/:pseudo', function(req, res){
+app.get('/getUser/:pseudo', function (req, res) {
     const idUser = req.params.pseudo.toLowerCase();
-    if(userList.hasUser(idUser)){
+    if (userList.hasUser(idUser)) {
         res.send({
             passed: true,
             user: userList.get(idUser)
@@ -52,14 +56,44 @@ app.get('/getUser/:pseudo', function(req, res){
     else {
         res.status(404).send({
             message: "No User Found"
-        })
+        });
     }
 });
 
-app.post('/createAd/:pseudo', function(req, res) {
-    const idUser = req.params.pseudo.toLowerCase();
-    if(userList.hasUser(idUser)){
 
+app.post('/joinAd/', function (req, res) {
+    const json = req.body;
+    const userName = json['user'].toLowerCase();
+    const adTitle = json['adTitle'];
+    if (userList.hasUser(userName) && adList.hasAd(adTitle)) {
+        const ad = adList.get(adTitle);
+        ad.pushDemand(userName);
+        console.log(ad);
+        res.send({
+            passed: true,
+            user: userName
+        });
+    }
+});
+
+app.post('/joinFlatsharing/', function (req, res) {
+    const json = req.body;
+    const userId = json['user'].toLowerCase();
+    const adTitle = json['adTitle'];
+    if (userList.hasUser(userId) && adList.hasAd(adTitle)) {
+        const ad = adList.get(adTitle);
+        ad.pushRoomMates(userId);
+        flatsharingList.hasFlatsharing(ad);
+        res.send({
+            passed: true,
+            user: userId
+        });
+    }
+});
+
+app.post('/createAd/:pseudo', function (req, res) {
+    const idUser = req.params.pseudo.toLowerCase();
+    if (userList.hasUser(idUser)) {
         const json = req.body.value;
         const title = json['title'];
         const rent = json['rent'];
@@ -67,15 +101,14 @@ app.post('/createAd/:pseudo', function(req, res) {
         const description = json['description'];
         const adress = json['adress'];
         const area = json['area'];
-
-        let ad = new Ad(idUser,title,rent,nbMaxRoomMates,area,description,adress);
-
+        let ad = new Ad(idUser, title, rent, nbMaxRoomMates, area, description, adress);
+        let flatsharing = new Flatsharing(ad);
+        flatsharingList.push(flatsharing);
+        ad.pushRoomMates(idUser);
         adList.push(ad);
-
-
         res.send({
             passed: true,
-            user: user
+            user: idUser
         });
 
     } else {
@@ -83,12 +116,12 @@ app.post('/createAd/:pseudo', function(req, res) {
             message: "No User Found"
         });
     }
+});
 
-    });
 
-app.post('/createEvent/:pseudo', function(req, res) {
+app.post('/createEvent/:pseudo', function (req, res) {
     const idUser = req.params.pseudo.toLowerCase();
-    if(userList.hasUser(idUser)){
+    if (userList.hasUser(idUser)) {
 
         const json = req.body.value;
         const title = json['title'];
@@ -96,7 +129,7 @@ app.post('/createEvent/:pseudo', function(req, res) {
         const description = json['description'];
         const adress = json['adress'];
 
-        let event = new Event(idUser,title,dateEvent,description,adress);
+        let event = new Event(idUser, title, dateEvent, description, adress);
 
         eventList.push(event);
 
@@ -113,7 +146,7 @@ app.post('/createEvent/:pseudo', function(req, res) {
 });
 
 
-app.post('/createUser', function(req, res){
+app.post('/createUser', function (req, res) {
     //console.log(req.body);
     const json = req.body;
     const name = json['name'].toLowerCase();
@@ -125,8 +158,8 @@ app.post('/createUser', function(req, res){
     const hobbies = json['hobbies'];
 
 
-    if(!userList.hasUser(pseudo)){
-        let user = new User(name,firstName,password,mail,birthday,pseudo,hobbies);
+    if (!userList.hasUser(pseudo)) {
+        let user = new User(name, firstName, password, mail, birthday, pseudo, hobbies);
         userList.push(user);
         res.send({
             passed: true,
@@ -141,7 +174,7 @@ app.post('/createUser', function(req, res){
     }
 });
 
-app.get('/getItems', function(req, res){
+app.get('/getItems', function (req, res) {
     let item = shoppingList.getItems();
     console.log(item);
     res.send({
@@ -181,7 +214,7 @@ app.get('/getAllKindOfTasks', function(req, res){
     });
 });
 
-app.get('/getTaskAssignee/:task', function(req, res){
+app.get('/getTaskAssignee/:task', function (req, res) {
     const t = req.params.task.toLowerCase();
     let assig = task.getAssignee(t);
     console.log(assig);
@@ -192,15 +225,23 @@ app.get('/getTaskAssignee/:task', function(req, res){
 });
 
 
-app.get('/getAllAds', function(req, res){
+app.get('/getAllAds', function (req, res) {
+    let tempList =[];
+    adList.list.forEach(function(l) {
+        if(l.getNbMaxRoomMates() > l.roomMatesId.length)
+            tempList.push(l);
+    });
+
     res.send({
         passed: true,
-        ads: adList
+        ads: tempList
     });
     console.log(adList);
 });
 
-app.get('/doTask/:task', function(req, res){
+
+
+app.get('/doTask/:task', function (req, res) {
     const t = req.params.task.toLowerCase();
     task.deleteAssignement(t);
     res.send({
@@ -208,7 +249,7 @@ app.get('/doTask/:task', function(req, res){
     });
 });
 
-app.get('/assigneTask/:task/:pseudo', function(req, res) {
+app.get('/assigneTask/:task/:pseudo', function (req, res) {
     const t = req.params.task.toLowerCase();
     const n = req.params.pseudo.toLowerCase();
     let result = task.assigneTask(t, n);
@@ -225,7 +266,7 @@ app.get('/assigneTask/:task/:pseudo', function(req, res) {
 
 });
 
-app.get('/createNewTask/:task', function(req, res){
+app.get('/createNewTask/:task', function (req, res) {
     const t = req.params.task.toLowerCase();
     task.addTask(t);
     res.send({
@@ -233,7 +274,7 @@ app.get('/createNewTask/:task', function(req, res){
     });
 });
 
-app.get('/getTaskofUser/:user',function(req, res){
+app.get('/getTaskofUser/:user', function (req, res) {
     const usr = req.params.user.toLowerCase();
     let tab = task.getTaskofUser(usr);
     console.log(tab.length);

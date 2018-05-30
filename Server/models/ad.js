@@ -11,6 +11,8 @@ module.exports = class Ad {
         this.description = description;
         this.adress = adress;
         this.isPublished=true;
+        this.demandsId = [];
+        this.roomMatesId = [];
     }
 
     getTitle() {
@@ -40,9 +42,10 @@ module.exports = class Ad {
     getAdress(){
         return this.adress;
     }
-
-
-
-
-
+    pushDemand(userId){
+        this.demandsId.push(userId);
+    }
+    pushRoomMates(userId){
+        this.roomMatesId.push(userId);
+    }
 }

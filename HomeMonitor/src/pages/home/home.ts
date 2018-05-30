@@ -6,7 +6,7 @@ import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import {Server} from "../../server/server";
-import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
+import {AdOrFlatsharingPage} from "../Ads/adOrFlatsharing/adOrFlatsharing";
 
 let server = new Server();
 

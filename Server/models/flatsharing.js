@@ -3,16 +3,12 @@
 module.exports = class FlatSharing {
 
     constructor(ad) {
-        this.chief = ad.getPublisher();
+        this.idChief = ad.getIDPublisher();
         this.ad = ad;
-        this.roomMates = [chief];
 
     }
 
-    addRoomMate(user){
-        if(this.roomMates.length<this.ad.getNbMaxRoomMates()){
-            this.roomMates.push(user);
-        }
+    getAd(){
+        return this.ad;
     }
-
 }

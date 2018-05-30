@@ -3,7 +3,7 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 
 import {Server} from "../../server/server";
 import {Storage} from "@ionic/storage";
-import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
+import {AdOrFlatsharingPage} from "../Ads/adOrFlatsharing/adOrFlatsharing";
 import {TabsPage} from "../tabs/tabs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HobbiesPage} from "../hobbies/hobbies";

@@ -4,9 +4,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 import { Storage } from '@ionic/storage';
-
 import {AdProvider} from "../../../providers/ad/ad";
-import {AdOrFlatsharingPage} from "../../adOrFlatsharing/adOrFlatsharing";
+import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
 
 
 /**
@@ -29,7 +28,6 @@ export class CreateAdPage {
   private currentUser;
 
   constructor(public storage:Storage,public adProvider: AdProvider, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
-
     this.storage.get("currentUser").then((data) => {
       if(data != null){
         console.log("currentUser : "+ data);

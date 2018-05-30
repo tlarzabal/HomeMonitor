@@ -10,7 +10,7 @@ import {TabsPage} from '../pages/tabs/tabs';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {ListAdsPage} from "../pages/Ads/listAds/listAds";
-import {AdOrFlatsharingPage} from "../pages/adOrFlatsharing/adOrFlatsharing";
+import {AdOrFlatsharingPage} from "../pages/Ads/adOrFlatsharing/adOrFlatsharing";
 import {CreateAdPage} from "../pages/Ads/create-ad/create-ad";
 import {HttpModule} from '@angular/http';
 import {AdProvider} from '../providers/ad/ad';

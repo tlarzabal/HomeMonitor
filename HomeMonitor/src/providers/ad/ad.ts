@@ -33,4 +33,24 @@ export class AdProvider {
       );
   }
 
+
+
+  joinAd(adTitle,currentUser) {
+
+    this.http.post(this.server.getAllPath().concat('/joinAd/'), {
+      //title: this.form.value['title'],
+      //description: this.form.value['description']
+      adTitle: adTitle,
+      user: currentUser
+    })
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
+  }
+
 }
