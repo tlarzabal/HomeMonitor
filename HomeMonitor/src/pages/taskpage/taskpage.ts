@@ -3,6 +3,10 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 
 import {Server} from "../../server/server";
 import {Storage} from "@ionic/storage";
+import {AdOrFlatsharingPage} from "../adOrFlatsharing/adOrFlatsharing";
+import {TabsPage} from "../tabs/tabs";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {HobbiesPage} from "../hobbies/hobbies";
 
 let server = new Server();
 
@@ -20,15 +24,20 @@ let server = new Server();
 })
 export class TaskpagePage {
 
+    private form : FormGroup;
+
       allkindOfTasks;
       tasktoBeAssigned;
       nameToBeAssigned;
         choice = 'all';
     private currentUser;
     taskOfCurrentuser;
+    done;
 
-  constructor(public storage:Storage, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
-    this.getAllkindOfTasks();
+  constructor(public storage:Storage, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, private formBuilder: FormBuilder) {
+      this.done = new Array();
+      this.getAllkindOfTasks();
+      this.initDone();
       this.taskOfCurrentuser = new Array();
 
       this.storage.get("currentUser").then((data) => {
@@ -39,6 +48,11 @@ export class TaskpagePage {
               console.log("NOT CONNECTED");
           }
 
+      });
+
+      this.form = this.formBuilder.group({
+          tache: ['', Validators.required],
+          membre: ['', Validators.required]
       });
   }
 
@@ -60,8 +74,6 @@ export class TaskpagePage {
       return assig;
   }
 
-  submit(){
-  }
 
   reqAssigneTask(task, name){
     if (task != "" && name != ""){
@@ -83,7 +95,7 @@ export class TaskpagePage {
                 showCloseButton: true,
             });
             toast.present();
-            this.navCtrl.push(TaskpagePage);
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
         }
 
     }else {
@@ -106,4 +118,40 @@ export class TaskpagePage {
         this.taskOfCurrentuser = obj.result;
     }
 
+    initDone(){
+      for (var i=0; i<this.allkindOfTasks.length; i++){
+          this.done.push({Task: this.allkindOfTasks[i], Value: false});
+      }
+    }
+
+    reqDoTask(){
+      this.done.forEach(function(element){
+          if (element.Value){
+              server.doTask(element.Task);
+          }
+      });
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+    }
+
+    logForm() {
+        server.createNewTask(this.form.value['tache']);
+        var req = server.assigneTask(this.form.value['tache'], this.form.value['membre']);
+        if (req.status == 404) {
+            let toast = this.toastCtrl.create({
+                message: "Tâche déjà assignée",
+                duration: 5000,
+                showCloseButton: true,
+            });
+            toast.present();
+        } else {
+            let toast = this.toastCtrl.create({
+                message: "Tâche ajoutée",
+                duration: 5000,
+                showCloseButton: true,
+            });
+            toast.present();
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        }
+    }
 }

@@ -191,7 +191,7 @@ app.get('/getAllAds', function(req, res){
 
 app.get('/doTask/:task', function(req, res){
     const t = req.params.task.toLowerCase();
-    this.task.deleteAssignement(t);
+    task.deleteAssignement(t);
     res.send({
         passed: true
     });
@@ -232,4 +232,4 @@ app.get('/getTaskofUser/:user',function(req, res){
         passed: true,
         result: tab
     });
-})
+});
