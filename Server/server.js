@@ -122,6 +122,16 @@ app.get('/getItems', function(req, res){
     });
 });
 
+app.get('/deleteItems/:name', function(req, res){
+    const t = req.params.name;
+    let items = shoppingList.deleteItem(t);
+    console.log(items);
+    res.send({
+        passed: true,
+        item: items
+    });
+});
+
 
 app.get('/getAllKindOfTasks', function(req, res){
     let kindTask = task.getKindOfTasks();
