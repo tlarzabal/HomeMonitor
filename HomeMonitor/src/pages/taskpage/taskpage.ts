@@ -69,7 +69,7 @@ export class TaskpagePage {
                 showCloseButton: true,
             });
             toast.present();
-            this.navCtrl.push(TabsPage);
+            this.navCtrl.push(TaskpagePage);
         }
 
     }else {
