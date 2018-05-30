@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {TaskpagePage} from "../taskpage/taskpage";
+import {ShoppingListPage} from "../shopping-list/shopping-list";
+import {EventPage} from "../event/event";
 
 
 
@@ -6,11 +9,11 @@ import { Component } from '@angular/core';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-/*
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
-*/
+
+  tab1Root = EventPage;
+  tab2Root = TaskpagePage;
+  tab3Root = ShoppingListPage;
+
   constructor() {
 
   }

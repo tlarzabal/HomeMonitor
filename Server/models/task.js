@@ -20,7 +20,9 @@ module.exports = class Task {
     }
 
     addTask(name){
-        this.kindOfTasks.push(name);
+        if(!this.kindOfTasks.includes(name)){
+            this.kindOfTasks.push(name);
+        }
     }
 
     deleteTask(name){
@@ -37,10 +39,13 @@ module.exports = class Task {
     assigneTask(task, name){
         if(!this.tasks.has(task)){
             this.tasks.set(task,name);
+            return true;
+        }else{
+            return false;
         }
     }
 
-    deleteAssignement(task, name){
+    deleteAssignement(task){
         this.tasks.delete(task);
     }
 
@@ -48,7 +53,7 @@ module.exports = class Task {
         if(this.tasks.has(task.toLowerCase())){
             return this.tasks.get(task);
         }else{
-            return "Aucun membre assigné.";
+            return "Aucun.";
         }
 
     }

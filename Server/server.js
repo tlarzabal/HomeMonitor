@@ -31,12 +31,13 @@ const server = app.listen(process.env.PORT || 8080);
 let userList = new UserList;
 let shoppingList = new ShoppingList;
 let task = new Task;
+var adList=[];
 
 /**
  * Partie API
  */
 
-var adList=[];
+
 
 app.get('/getUser/:name', function(req, res){
     const userName = req.params.name.toLowerCase();
@@ -57,7 +58,7 @@ app.post('/createAd/:name', function(req, res) {
     const userName = req.params.name.toLowerCase();
     if(userList.hasUser(userName)){
 
-        const json = req.body;
+        const json = req.body.value;
         const title = json['title'];
         const rent = json['rent'];
         const nbMaxRoomMates = json['nbMaxRoomMates'];
@@ -149,5 +150,47 @@ app.get('/getTaskAssignee/:task', function(req, res){
     res.send({
         passed: true,
         assignee: assig
+    });
+});
+
+
+app.get('/getAllAds', function(req, res){
+    res.send({
+        passed: true,
+        ads: adList
+    });
+    console.log(adList);
+});
+
+app.get('/doTask/:task', function(req, res){
+    const t = req.params.task.toLowerCase();
+    this.task.deleteAssignement(t);
+    res.send({
+        passed: true
+    });
+});
+
+app.get('/assigneTask/:task/:name', function(req, res) {
+    const t = req.params.task.toLowerCase();
+    const n = req.params.name.toLowerCase();
+    let result = task.assigneTask(t, n);
+
+    if (result) {
+        res.send({
+            passed: true
+        });
+    } else {
+        res.status(404).send({
+            passed: true
+        });
+    }
+
+});
+
+app.get('/createNewTask/:task', function(req, res){
+    const t = req.params.task.toLowerCase();
+    task.addTask(t);
+    res.send({
+        status: true
     });
 });

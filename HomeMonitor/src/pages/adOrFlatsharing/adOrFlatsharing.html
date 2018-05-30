@@ -1,23 +1,19 @@
-<ion-content padding>
-
+<ion-content class="vertical-align-content">
   <ion-row>
-    <ion-col width-50 style="text-align: center">
-      <button ion-button (click)="listAds()" color="dark" round><ion-icon ios="ios-search"  md="md-search"></ion-icon>&nbsp; Recherche de colocation</button>
+    <ion-col col-12 col-sm style="text-align: center">
+      <div padding>
+      <button ion-button (click)="listAds()" color="dark" full round><ion-icon ios="ios-search"  md="md-search"></ion-icon>&nbsp; Recherche de colocation</button>
+      </div>
     </ion-col>
-  </ion-row>
-  <ion-row *ngIf="!hasFlatsharing">
-    <ion-col width-50 style="text-align: center">
-      <button ion-button (click)="addAd()" color="dark" round><ion-icon ios="ios-add" md="md-add"></ion-icon>&nbsp; Ajouter une annonce</button>
+    <ion-col col-12 col-sm style="text-align: center">
+      <div padding>
+      <button *ngIf="!hasFlatsharing" ion-button (click)="addAd()" color="dark" full round><ion-icon ios="ios-add" md="md-add"></ion-icon>&nbsp; Ajouter une annonce</button>
+    </div>
     </ion-col>
-  </ion-row>
-  <ion-row *ngIf="!hasFlatsharing"> <!-- Enlever le "!" -->
-    <ion-col width-50 style="text-align: center">
-      <button ion-button color="dark" (click)="flatsharing()" round> <ion-icon ios="ios-home"  md="md-home"></ion-icon>&nbsp; Ma colocation (tâches)</button>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="!hasFlatsharing"> <!-- Enlever le "!" -->
-    <ion-col width-50 style="text-align: center">
-      <button ion-button color="dark" (click)="flatsharing2()" round> <ion-icon ios="ios-home"  md="md-home"></ion-icon>&nbsp; Ma colocation (liste)</button>
+    <ion-col col-12 col-sm style="text-align: center">
+      <div padding>
+    <button *ngIf="!hasFlatsharing" ion-button color="dark" (click)="flatsharing()" full round> <ion-icon ios="ios-home"  md="md-home"></ion-icon>&nbsp; Ma colocation </button>
+      </div>
     </ion-col>
   </ion-row>
 </ion-content>

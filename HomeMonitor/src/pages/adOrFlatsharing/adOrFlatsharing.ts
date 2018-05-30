@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {ListAdsPage} from "../listAds/listAds";
 import {CreateAdPage} from "../create-ad/create-ad";
-import {TaskpagePage} from "../taskpage/taskpage";
-import {ShoppingListPage} from "../shopping-list/shopping-list";
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
   selector: 'page-adOrFlatsharing',
@@ -20,11 +19,7 @@ export class AdOrFlatsharingPage {
   }
 
   flatsharing(){
-      this.navCtrl.push(TaskpagePage);
-  }
-
-  flatsharing2(){
-    this.navCtrl.push(ShoppingListPage);
+      this.navCtrl.push(TabsPage);
   }
 
   addAd(){
