@@ -58,4 +58,14 @@ module.exports = class Task {
 
     }
 
+    getTaskofUser(user){
+        let res = new Array();
+        for (let key of this.tasks.keys()) {
+            if(this.tasks.get(key).toLowerCase() == user.toLowerCase()){
+                res.push(key);
+            }
+        }
+        return res;
+    }
+
 }

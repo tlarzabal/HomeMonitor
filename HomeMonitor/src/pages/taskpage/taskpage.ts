@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 
 import {Server} from "../../server/server";
-import {TabsPage} from "../tabs/tabs";
+import {Storage} from "@ionic/storage";
+
 let server = new Server();
 
 /**
@@ -23,9 +24,22 @@ export class TaskpagePage {
       tasktoBeAssigned;
       nameToBeAssigned;
         choice = 'all';
+    private currentUser;
+    taskOfCurrentuser;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
+  constructor(public storage:Storage, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.getAllkindOfTasks();
+      this.taskOfCurrentuser = new Array();
+
+      this.storage.get("currentUser").then((data) => {
+          if(data != null){
+              this.currentUser = data;
+          }
+          else {
+              console.log("NOT CONNECTED");
+          }
+
+      });
   }
 
   ionViewDidLoad() {
@@ -82,5 +96,14 @@ export class TaskpagePage {
     }
 
  }
+
+    reqGetTaskofUser(user){
+        var req = server.getTaskofUser(user);
+        let obj = JSON.parse(req.responseText);
+        console.log("longueur du tab :");
+        console.log(obj);
+        console.log(obj.result);
+        this.taskOfCurrentuser = obj.result;
+    }
 
 }
