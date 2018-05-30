@@ -221,3 +221,15 @@ app.get('/createNewTask/:task', function(req, res){
         status: true
     });
 });
+
+app.get('/getTaskofUser/:user',function(req, res){
+    const usr = req.params.user.toLowerCase();
+    let tab = task.getTaskofUser(usr);
+    console.log(tab.length);
+    console.log("USER : ");
+    console.log(usr);
+    res.send({
+        passed: true,
+        result: tab
+    });
+})

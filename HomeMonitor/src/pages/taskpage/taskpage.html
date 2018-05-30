@@ -9,7 +9,7 @@
             <ion-segment-button value="all">
                 All
             </ion-segment-button>
-            <ion-segment-button value="mine">
+            <ion-segment-button value="mine" (click)="reqGetTaskofUser(currentUser)">
                 Mine
             </ion-segment-button>
             <ion-segment-button value="create">
@@ -36,17 +36,10 @@
             </ion-list>
         </ion-list>
         <ion-list *ngSwitchCase="'mine'">
-            <ion-label>Prochaînement</ion-label>
             <ion-list>
-
-
-                <ion-item *ngFor="let task of allkindOfTasks">
+                <ion-item *ngFor="let task of taskOfCurrentuser">
                     <ion-label style="text-align: left">{{task}}</ion-label>
-                    <ion-label style="text-align: center">{{getTasksAssigned(task)}}</ion-label>
-                    <ion-checkbox style="align-items: right"></ion-checkbox>
-
                 </ion-item>
-                <button ion-button color="dark" (click)="submit()" style="text-align: center" item-right="" round>Mettre à jour les tâches</button>
             </ion-list>
         </ion-list>
 

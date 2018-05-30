@@ -79,6 +79,15 @@ export class Server {
     req.send(null);
     return req;
   }
+  
+  getTaskofUser(user){
+      var req = new XMLHttpRequest();
+      req.open("GET", this.getAllPath().concat("/getTaskofUser/").concat(user),false);
+      req.send(null);
+      console.log("REQ : ");
+      console.log(req);
+      return req;
+  }
 
   deleteShoppingListItem(name){
     var req = new XMLHttpRequest();
