@@ -160,13 +160,21 @@ app.get('/doTask/:task', function(req, res){
     });
 });
 
-app.get('/assigneTask/:task/:name', function(req, res){
+app.get('/assigneTask/:task/:name', function(req, res) {
     const t = req.params.task.toLowerCase();
     const n = req.params.name.toLowerCase();
-    task.assigneTask(t,n);
-    res.send({
-        passed: true
-    });
+    let result = task.assigneTask(t, n);
+
+    if (result) {
+        res.send({
+            passed: true
+        });
+    } else {
+        res.status(404).send({
+            passed: true
+        });
+    }
+
 });
 
 app.get('/createNewTask/:task', function(req, res){
