@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {Server} from "../../server/server";
+import {Server} from "../../../server/server";
+
 let server = new Server();
 @Component({
   selector: 'page-listAds',

@@ -4,7 +4,7 @@ module.exports = class Event {
 
     constructor(title, idUserCreator, dateEvent, description, adress) {
 
-        this.tile = title;
+        this.title = title;
         this.idUserCreator = idUserCreator;
         this.dateEvent = dateEvent;
         this.creationDate = Date.now();
