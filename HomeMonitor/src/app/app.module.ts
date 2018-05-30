@@ -19,8 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { IonicStorageModule } from '@ionic/storage';
 
 
-import {TaskpagePage} from "../pages/taskpage/taskpage";
 import {ShoppingListPage} from "../pages/shopping-list/shopping-list";
+import {TaskpagePage} from "../pages/taskpage/taskpage";
 
 @NgModule({
   declarations: [
