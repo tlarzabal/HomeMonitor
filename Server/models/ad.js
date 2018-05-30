@@ -2,11 +2,11 @@
 
 module.exports = class Ad {
 
-    constructor(publisher,title,rent,nbMaxRoomMates,area,description,adress) {
+    constructor(idPublisher,title,rent,nbMaxRoomMates,area,description,adress) {
         this.title = title;
         this.rent = rent;
         this.nbMaxRoomMates = nbMaxRoomMates;
-        this.publisher= publisher;
+        this.idPublisher= idPublisher;
         this.area = area;
         this.description = description;
         this.adress = adress;
@@ -21,8 +21,8 @@ module.exports = class Ad {
         return this.isPublished;
     }
 
-    getPublisher() {
-        return this.publisher;
+    getIDPublisher() {
+        return this.idPublisher;
     }
 
     getRent(){

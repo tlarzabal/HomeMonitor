@@ -44,7 +44,7 @@ export class CreateEventPage {
   }
   createEvent(){
     console.log(this.form.value);
-      //this.eventProvider.createEvent(this.form.value,this.currentUser);
+      this.eventProvider.createEvent(this.form.value,this.currentUser);
       this.navCtrl.pop();
   }
 

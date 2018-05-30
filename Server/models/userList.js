@@ -11,25 +11,25 @@ module.exports = class UserList {
     }
 
     /**
-     * Get user by name
-     * @param name
+     * Get user by pseudo (id)
+     * @param pseudo
      */
-    get(name) {
-        let userId = this.list.findIndex(i => i.getPseudo() === name);
+    get(pseudo) {
+        let userId = this.list.findIndex(i => i.getPseudo() === pseudo);
         return this.list[userId];
     }
 
 
     /**
      *
-     * @param name
+     * @param pseudo
      */
     hasUser(pseudo){
         return (this.list.findIndex(i => i.getPseudo() === pseudo) !== -1);
     }
 
 
-    push(name) {
-        this.list.push(name);
+    push(user) {
+        this.list.push(user);
     }
 }

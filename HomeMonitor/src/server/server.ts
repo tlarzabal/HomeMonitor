@@ -17,9 +17,9 @@ export class Server {
     return this.path.concat(this.port);
   }
 
-  getUser(userName){
+  getUser(idUser){
     var req = new XMLHttpRequest();
-    req.open("GET", this.getAllPath().concat("/getUser/".concat(userName)), false);
+    req.open("GET", this.getAllPath().concat("/getUser/".concat(idUser)), false);
     req.send(null);
     return req;
   }
