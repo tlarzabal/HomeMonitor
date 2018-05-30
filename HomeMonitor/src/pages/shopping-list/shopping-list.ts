@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import {Server} from "../../server/server";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Storage} from "@ionic/storage";
 let server = new Server();
 
 /**
@@ -19,10 +21,7 @@ let server = new Server();
 export class ShoppingListPage {
 
   items;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.getItems();
-  }
+  private form : FormGroup;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShoppingListPage');
@@ -37,10 +36,24 @@ export class ShoppingListPage {
 
   deleteItem(name){
     var req = server.deleteShoppingListItem(name);
-    console.log(req.responseText)
     let obj = JSON.parse(req.responseText);
     console.log(obj.item);
     this.items = obj.item;
+  }
+
+  addItem() {
+    var req = server.addShoppingListItem(this.form.value['item']);
+    let obj = JSON.parse(req.responseText);
+    console.log(obj.item);
+    this.items = obj.item;
+    this.form.reset()
+  }
+
+  constructor(public storage: Storage ,public navCtrl: NavController, private formBuilder: FormBuilder ) {
+    this.getItems();
+    this.form = this.formBuilder.group({
+      item: ['', Validators.required]
+    });
   }
 
 }

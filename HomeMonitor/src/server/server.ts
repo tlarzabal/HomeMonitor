@@ -1,7 +1,6 @@
 /**
  * Created by thiba on 29/05/2018.
  */
-import {flattenStyles} from "@angular/platform-browser/src/dom/dom_renderer";
 
 export class Server {
 
@@ -82,7 +81,14 @@ export class Server {
 
   deleteShoppingListItem(name){
     var req = new XMLHttpRequest();
-    req.open("GET", this.getAllPath().concat("/deleteItems/").concat(name),false);
+    req.open("GET", this.getAllPath().concat("/deleteItem/").concat(name),false);
+    req.send(null);
+    return req;
+  }
+
+  addShoppingListItem(name){
+    var req = new XMLHttpRequest();
+    req.open("GET", this.getAllPath().concat("/addItem/").concat(name),false);
     req.send(null);
     return req;
   }

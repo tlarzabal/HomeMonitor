@@ -29,4 +29,14 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <form [formGroup]="form" (ngSubmit)="addItem()">
+    <ion-item>
+      <ion-input type="reset" placeholder="Item" [(ngModel)]="form.item" name="item" formControlName="item" type="text"></ion-input>
+      <button item-right="" ion-button type="submit" [disabled]="!form.valid" round>AJOUTER</button>
+    </ion-item>
+  </form>
+
+
+
 </ion-content>
