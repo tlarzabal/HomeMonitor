@@ -25,19 +25,20 @@ let server = new Server();
 export class TaskpagePage {
 
     private form : FormGroup;
-
-      allkindOfTasks;
-      tasktoBeAssigned;
-      nameToBeAssigned;
-        choice = 'all';
+    allkindOfTasks;
+    choice = 'all';
     private currentUser;
     taskOfCurrentuser;
     done;
+    tache;
+    allAssignee;
 
   constructor(public storage:Storage, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController, private formBuilder: FormBuilder) {
       this.done = new Array();
+      this.allAssignee = new Map();
       this.getAllkindOfTasks();
       this.initDone();
+      this.getAllAssig();
       this.taskOfCurrentuser = new Array();
 
       this.storage.get("currentUser").then((data) => {
@@ -51,13 +52,8 @@ export class TaskpagePage {
       });
 
       this.form = this.formBuilder.group({
-          tache: ['', Validators.required],
           membre: ['', Validators.required]
       });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskpagePage');
   }
 
   getAllkindOfTasks(){
@@ -67,47 +63,15 @@ export class TaskpagePage {
     this.allkindOfTasks = obj.kind;
   }
 
-  getTasksAssigned(task){
-      var req = server.getTaskAssignee(task);
-      let assig = JSON.parse(req.responseText).assignee;
-      console.log(assig);
-      return assig;
+  getAllAssig(){
+      var req = server.getAllAssignee();
+      let obj = JSON.parse(req.responseText);
+      let tmpArray = obj.result;
+      for (let i=0; i<tmpArray.length; i++){
+          this.allAssignee.set(this.allkindOfTasks[i], tmpArray[i]);
+      }
   }
 
-
-  reqAssigneTask(task, name){
-    if (task != "" && name != ""){
-        console.log("ok");
-        server.createNewTask(task);
-        var req = server.assigneTask(task, name);
-
-        if (req.status == 404){
-            let toast = this.toastCtrl.create({
-                message: "Tâche déjà assignée",
-                duration: 5000,
-                showCloseButton: true,
-            });
-            toast.present();
-        }else{
-            let toast = this.toastCtrl.create({
-                message: "Tâche ajoutée",
-                duration: 5000,
-                showCloseButton: true,
-            });
-            toast.present();
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        }
-
-    }else {
-        let toast = this.toastCtrl.create({
-            message: "Champs incomplets",
-            duration: 5000,
-            showCloseButton: true,
-        });
-        toast.present();
-    }
-
- }
 
     reqGetTaskofUser(user){
         var req = server.getTaskofUser(user);
@@ -135,8 +99,8 @@ export class TaskpagePage {
     }
 
     logForm() {
-        server.createNewTask(this.form.value['tache']);
-        var req = server.assigneTask(this.form.value['tache'], this.form.value['membre']);
+        server.createNewTask(this.tache);
+        var req = server.assigneTask(this.tache, this.form.value['membre']);
         if (req.status == 404) {
             let toast = this.toastCtrl.create({
                 message: "Tâche déjà assignée",

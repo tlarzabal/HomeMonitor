@@ -28,7 +28,7 @@
 
                 <ion-item *ngFor="let task of done">
                     <ion-label style="text-align: left">{{task.Task}}</ion-label>
-                    <ion-label style="text-align: center">{{getTasksAssigned(task.Task)}}</ion-label>
+                    <ion-label style="text-align: center">{{allAssignee.get(task.Task)}}</ion-label>
                     <ion-checkbox [(ngModel)]="task.Value"></ion-checkbox>
                 </ion-item>
 
@@ -44,8 +44,23 @@
         </ion-list>
 
         <ion-list *ngSwitchCase="'create'">
+
+            <ion-list>
+            <ion-item>
+                <ion-label>Tâches ménagères</ion-label>
+                <ion-select [(ngModel)]="tache">
+                    <ion-option value="Vaisselle">Vaisselle</ion-option>
+                    <ion-option value="Sortir les poubelles">Sortir les poubelles</ion-option>
+                    <ion-option value="Ménage salle de bain">Ménage de la salle de bain</ion-option>
+                    <ion-option value="Ménage cuisine">Ménage cuisine</ion-option>
+                    <ion-option value="Ménage séjour">Ménage séjour</ion-option>
+                    <ion-option value="Faire les courses">Faire les courses</ion-option>
+                    <ion-option value="Chercher le courrier">Chercher le courrier</ion-option>
+                    <ion-option value="Faire la lessive">Faire la lessive</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
             <form [formGroup]="form" (ngSubmit)="logForm()">
-                <ion-input align-items-center="" text-center="" placeholder="Tâche ménagère" [(ngModel)]="form.tache" name="tache" formControlName="tache" type="text"></ion-input>
                 <ion-input align-items-center="" text-center="" placeholder="Membre de la colocation" [(ngModel)]="form.membre" name="membre" formControlName="membre" type="text"></ion-input>
             <ion-row>
                 <ion-col width-50 style="text-align: center">

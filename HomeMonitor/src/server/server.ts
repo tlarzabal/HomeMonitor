@@ -51,13 +51,6 @@ export class Server {
     return req;
   }
 
-  getTaskAssignee(task){
-    var req = new XMLHttpRequest();
-    req.open("GET", this.getAllPath().concat("/getTaskAssignee/").concat(task),false);
-    req.send(null);
-    return req;
-  }
-
   doTask(task){
     var req = new XMLHttpRequest();
     req.open("GET", this.getAllPath().concat("/doTask/").concat(task), false);
@@ -100,6 +93,13 @@ export class Server {
     req.open("GET", this.getAllPath().concat("/addItem/").concat(name),false);
     req.send(null);
     return req;
+  }
+
+  getAllAssignee(){
+      var req = new XMLHttpRequest();
+      req.open("GET", this.getAllPath().concat("/getAllAssignee"), false);
+      req.send(null);
+      return req;
   }
 
 

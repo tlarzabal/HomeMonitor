@@ -226,16 +226,6 @@ app.get('/getAllKindOfTasks', function (req, res) {
     });
 });
 
-app.get('/getTaskAssignee/:task', function (req, res) {
-    const t = req.params.task.toLowerCase();
-    let assig = task.getAssignee(t);
-    console.log(assig);
-    res.send({
-        passed: true,
-        assignee: assig
-    });
-});
-
 
 app.get('/getAllAds', function (req, res) {
     let tempList =[];
@@ -278,16 +268,8 @@ app.get('/assigneTask/:task/:pseudo', function (req, res) {
 
 });
 
-app.get('/createNewTask/:task', function (req, res) {
-    const t = req.params.task.toLowerCase();
-    task.addTask(t);
-    res.send({
-        status: true
-    });
-});
-
-app.get('/getTaskofUser/:pseudo', function (req, res) {
-    const usr = req.params.pseudo.toLowerCase();
+app.get('/getTaskofUser/:user',function(req, res){
+    const usr = req.params.user.toLowerCase();
     let tab = task.getTaskofUser(usr);
     console.log(tab.length);
     console.log("USER : ");
@@ -298,38 +280,10 @@ app.get('/getTaskofUser/:pseudo', function (req, res) {
     });
 });
 
-
-
-// Quand un client se connecte, on le note dans la console
-io.sockets.on('connection', function (socket) {
-
-    console.log('Un client est connecté !');
-
-    socket.on('createEvent', function (data) {
-
-
-        const idUser = data['idUser'].toLowerCase();
-        if (userList.hasUser(idUser)) {
-
-            const json = data['value'];
-            const title = json['title'];
-            const dateEvent = json['dateEvent'];
-            const description = json['description'];
-            const adress = json['adress'];
-
-            let event = new Event(idUser, title, dateEvent, description, adress);
-
-            eventList.push(event);
-
-            console.log('recpetion du message venant de la socket');
-            console.log(eventList);
-
-            io.emit('addedEvent',{events: eventList});
-        }
-
-
+app.get('/getAllAssignee',function(req, res){
+    let assig = task.getAllAssignee();
+    res.send({
+        passed: true,
+        result: assig
     });
-
 });
-
-
